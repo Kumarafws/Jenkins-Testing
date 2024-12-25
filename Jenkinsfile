@@ -45,14 +45,4 @@ pipeline {
             }
         }
     }
-    post {
-        success {
-            emailext subject: 'Build Succeeded', body: 'The build succeeded!',
-                      to: 'developer@example.com'
-        }
-        failure {
-            emailext subject: 'Build Failed', body: 'The build failed.',
-                      to: 'developer@example.com'
-        }
-    }
 }
