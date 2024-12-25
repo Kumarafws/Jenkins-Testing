@@ -12,6 +12,7 @@ pipeline {
         stage('Install Dependencies') {
             steps {
                 bat 'npm install'
+                bat 'npm install --save-dev jest supertest'
             }
         }
         stage('Run Unit Tests') {
@@ -22,6 +23,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the application...'
+                bat 'npm run build'
             }
         }
         stage('Deploy to Staging') {
@@ -46,11 +48,11 @@ pipeline {
     post {
         success {
             emailext subject: 'Build Succeeded', body: 'The build succeeded!',
-                      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                      to: 'developer@example.com'
         }
         failure {
             emailext subject: 'Build Failed', body: 'The build failed.',
-                      recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+                      to: 'developer@example.com'
         }
     }
 }

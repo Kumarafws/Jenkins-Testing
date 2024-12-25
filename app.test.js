@@ -1,12 +1,13 @@
-const request = require('supertest')
-const app = require('./app')
+const request = require('supertest');
+const app = require('./app');
 
-describe('Unit Test (GET & POST)', () => {
+describe('Unit and Integration Tests', () => {
     it('responds with Hello, World!', async () => {
-        const res = await request(app).get('/')
-        expect(res.statusCode).toBe(200)
-        expect(res.text).toBe('Hello, My World!')
-    })
+        const res = await request(app).get('/');
+        expect(res.statusCode).toBe(200);
+        expect(res.text).toBe('Hello, World!');
+    });
+
     it('Integration Test (POST /api/data)', async () => {
         const postRes = await request(app)
             .post('/api/data')
@@ -19,6 +20,6 @@ describe('Unit Test (GET & POST)', () => {
 
         const getRes = await request(app).get('/api/data');
         expect(getRes.statusCode).toBe(200);
-        expect(getRes.body).toEqual({ data: 'This is some data' }); 
+        expect(getRes.body).toEqual({ data: 'This is some data' });
     });
-})
+});
